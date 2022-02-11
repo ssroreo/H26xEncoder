@@ -40,6 +40,7 @@
         [[NSFileManager defaultManager] createFileAtPath:file contents:nil attributes:nil];
         fileHandle = [NSFileHandle fileHandleForWritingAtPath:file];
         
+        //init encoder
         encoder = [CH26xEncoder alloc];
         VideoFormat *vf = [[VideoFormat alloc] init];
         vf.width = 1920;
@@ -171,6 +172,7 @@
     }
 }
 
+#pragma mark - delegate
 - (void)getEncodedData:(NSMutableData*)data isKeyFrame:(BOOL)isKeyFrame
 {
     if (fileHandle != NULL)
