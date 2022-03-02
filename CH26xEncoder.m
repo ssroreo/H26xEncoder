@@ -41,16 +41,21 @@ const static Byte headerBytes[] = {0x00, 0x00, 0x00, 0x01};
     vps = nil;
     sps = nil;
     pps = nil;
-    [self initVideoToolBox];
 }
 
 - (void)dealloc{
-    if(encodingSession){
-        VTCompressionSessionCompleteFrames(encodingSession, kCMTimeInvalid);
-        VTCompressionSessionInvalidate(encodingSession);
-        CFRelease(encodingSession);
-        encodingSession = nil;
-    }
+    [self stop];
+}
+
+- (void)stop {
+    dispatch_sync(encodeQueue, ^{
+        if(encodingSession){
+            VTCompressionSessionCompleteFrames(encodingSession, kCMTimeInvalid);
+            VTCompressionSessionInvalidate(encodingSession);
+            CFRelease(encodingSession);
+            encodingSession = nil;
+        }
+    });
 }
 
 - (void)initVideoToolBox {

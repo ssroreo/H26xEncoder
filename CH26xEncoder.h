@@ -27,7 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CH26xEncoder : NSObject
 @property(weak, nonatomic)id<CH26xEncoderDelegate>delegate;
 - (void)initEncoder:(VideoFormat*)format;
+- (void)initVideoToolBox;
 - (void)encode:(CVImageBufferRef)imageBuffer;
+- (void)stop;
 @end
 
 NS_ASSUME_NONNULL_END
